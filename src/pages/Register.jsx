@@ -1,9 +1,15 @@
-import React from 'react';
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../context/AuthContextProvider';
 
 const Register = () => {
+    const { createNewUser, setUser } = useContext(AuthContext);
+    // const navigate = useNavigate();
 
     const handleSubmit = e => {
+
+
+
         e.preventDefault();
 
         const form = e.target;
@@ -13,7 +19,7 @@ const Register = () => {
         const password = form.password.value;
         console.log(name, email, photo, password);
 
-        
+
         if (!/(?=.*?[A-Z])/.test(password)) {
             alert('Password should contain one  uppercase letter or more');
             return;
@@ -27,6 +33,17 @@ const Register = () => {
             alert('Password should be 6 characters or longer');
             return;
         }
+
+        createNewUser(email, password)
+            .then(result => {
+                const user = result.user;
+                setUser(user);
+                alert('New user created')
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+
     }
 
     return (

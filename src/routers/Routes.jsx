@@ -2,9 +2,9 @@ import React from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 import HomeLayout from '../layouts/HomeLayout';
 import Home from '../pages/Home';
+import AuthLayout from '../layouts/AuthLayout';
 import Login from '../pages/Login';
 import Register from '../pages/Register';
-{/* <link href="/src/styles.css" rel="stylesheet"></link> */ }
 
 const Routes = createBrowserRouter([
     {
@@ -15,16 +15,23 @@ const Routes = createBrowserRouter([
                 path: "/",
                 element: <Home />,
             },
+        ],
+    },
+    {
+        path: "/auth",
+        element: <AuthLayout />,
+        children: [
             {
-                path: "/login",
+                path: "/auth/login",
                 element: <Login />
             },
             {
-                path: "/register",
+                path: "/auth/register",
                 element: <Register />
             }
-        ],
-    },
+        ]
+    }
+
 ]);
 
 export default Routes;

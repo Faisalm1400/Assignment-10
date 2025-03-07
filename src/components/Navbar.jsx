@@ -1,11 +1,17 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../context/AuthContextProvider";
 
 const Navbar = () => {
+    const { user, logOut } = useContext(AuthContext);
 
     const links = <>
-            <li><Link to={'/'}>Home</Link></li>
-            <li><Link>All Campaign</Link></li>
-        </>
+        <li><Link to={'/'}>Home</Link></li>
+        <li><Link>All Campaign</Link></li>
+        <li><Link>Add New Campaign</Link></li>
+        <li><Link>My Campaign</Link></li>
+        <li><Link>My Donations</Link></li>
+    </>
     return (
         <div className="navbar bg-base-100 shadow-sm">
             <div className="navbar-start">
@@ -27,8 +33,39 @@ const Navbar = () => {
                 </ul>
             </div>
             <div className="navbar-end flex gap-2">
-                <Link to={"/login"} className="btn">Login</Link>
-                <Link to={"/register"} className="btn">Register</Link>
+
+                <div>
+                    {
+                        user && user ?
+                            (<>
+                                <div className="dropdown dropdown-hover dropdown-end">
+                                    <div tabIndex={0} role="button" className="btn btn-circle avatar">
+                                        <div className="w-10 rounded-full">
+                                            <img
+                                                alt="Tailwind CSS Navbar component"
+                                                src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+                                        </div>
+                                    </div>
+                                    <ul
+                                        tabIndex={0}
+                                        className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
+                                        <li>
+                                            <a className="justify-between">
+                                                Profile
+                                            </a>
+                                        </li>
+                                        <li><a>Settings</a></li>
+                                        <li><Link onClick={logOut}>Logout</Link ></li>
+                                    </ul>
+                                </div>
+                            </>)
+                            :
+                            (<>
+                                <Link to={"/auth/login"} className="btn">Login</Link>
+                                <Link to={"/auth/register"} className="btn">Register</Link>
+                            </>)
+                    }
+                </div>
             </div>
         </div>
     );
