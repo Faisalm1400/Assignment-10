@@ -5,6 +5,9 @@ import Home from '../pages/Home';
 import AuthLayout from '../layouts/AuthLayout';
 import Login from '../pages/Login';
 import Register from '../pages/Register';
+import AddNewCampaign from '../pages/AddNewCampaign';
+import CampaignDetails from '../pages/CampaignDetails';
+import AllCampaign from '../pages/AllCampaign';
 
 const Routes = createBrowserRouter([
     {
@@ -14,7 +17,22 @@ const Routes = createBrowserRouter([
             {
                 path: "/",
                 element: <Home />,
+                loader: () => fetch('http://localhost:5000/campaign')
             },
+            {
+                path: "/allCampaign",
+                element: <AllCampaign />,
+                loader: () => fetch('http://localhost:5000/campaign')
+            },
+            {
+                path: "/addNewCampaign",
+                element: <AddNewCampaign />
+            },
+            {
+                path: "/campaign/:campaignID",
+                element: <CampaignDetails />,
+                loader: ({ params }) => fetch(`http://localhost:5000/campaign/${params.campaignID}`)
+            }
         ],
     },
     {

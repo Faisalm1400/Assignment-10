@@ -1,27 +1,8 @@
-import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-
-const RunningCampaignCard = ({ campaign }) => {
+const CampaignsCard = ({ campaign }) => {
 
     const { image, title, type, minDonation, deadline } = campaign;
-    const [isDeadlinePassed, setIsDeadlinePassed] = useState(false);
-
-    useEffect(() => {
-        const checkDeadline = () => {
-            const currentDate = new Date();
-            const campaignDeadline = new Date(deadline);
-            if (campaignDeadline < currentDate) {
-                setIsDeadlinePassed(true);
-            }
-        };
-        checkDeadline();
-    }, [deadline]);
-
-    if (isDeadlinePassed) {
-        return null; // Don't render the card if the deadline has passed
-    }
-
 
     return (
         <div className="card bg-base-100 w-96 shadow-sm">
@@ -41,12 +22,12 @@ const RunningCampaignCard = ({ campaign }) => {
                     <div className="badge badge-outline font-semibold">{deadline}</div>
                     <div className="badge badge-outline font-semibold"><span className="">Goal:</span> ${minDonation}</div>
                 </div>
-                    <Link to={`/campaign/${campaign._id}`} className="btn btn-primary">
-                        Show More
-                    </Link>
+                <Link to={`/campaign/${campaign._id}`} className="btn btn-primary">
+                    Show More
+                </Link>
             </div>
         </div>
     );
 };
 
-export default RunningCampaignCard;
+export default CampaignsCard;

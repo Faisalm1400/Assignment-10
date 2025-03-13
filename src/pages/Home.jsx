@@ -1,6 +1,11 @@
 import React from 'react';
+import { useLoaderData } from 'react-router-dom';
+import RunningCampaignCard from '../components/RunningCampaignCard';
 
 const Home = () => {
+
+    const campaigns = useLoaderData();
+
     return (
         <div>
             {/* banner section */}
@@ -80,7 +85,12 @@ const Home = () => {
 
             {/* running campaign section */}
             <section>
-
+                <h1 className='text-6xl text-red-500'> Running campaigns</h1>
+                <div className='flex gap-6 pt-8 pl-8 pb-5'>
+                    {
+                        campaigns.map(campaign => <RunningCampaignCard key={campaign._id} campaign={campaign} />)
+                    }
+                </div>
             </section>
 
             {/* extra section 1 */}

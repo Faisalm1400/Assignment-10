@@ -7,8 +7,8 @@ const Navbar = () => {
 
     const links = <>
         <li><Link to={'/'}>Home</Link></li>
-        <li><Link>All Campaign</Link></li>
-        <li><Link>Add New Campaign</Link></li>
+        <li><Link to={'/allCampaign'}>All Campaign</Link></li>
+        <li><Link to={'/addNewCampaign'}>Add New Campaign</Link></li>
         <li><Link>My Campaign</Link></li>
         <li><Link>My Donations</Link></li>
     </>
