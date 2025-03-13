@@ -1,7 +1,11 @@
+import { useContext } from "react";
+import Swal from "sweetalert2";
+import { AuthContext } from "../context/AuthContextProvider";
 
 const AddNewCampaign = () => {
-    const userEmail = "user@example.com"; // Replace with actual user data
-    const userName = "John Doe"; // Replace with actual user data
+    const { user } = useContext(AuthContext);
+
+    const { email, displayName } = user;
 
     const handleAddCampaign = (e) => {
         e.preventDefault();
@@ -13,25 +17,34 @@ const AddNewCampaign = () => {
         const description = form.description.value;
         const minDonation = form.minDonation.value;
         const deadline = form.deadline.value;
+        const email = form.email.value;
+        // const name = form.name.value;
 
-        const newCampaign = { image, title, type, description, minDonation, deadline };
+        const newCampaign = { image, title, type, description, minDonation, deadline,email };
         console.log(newCampaign);
 
         // send data to the server
         fetch("http://localhost:5000/campaign", {
-          method: "POST",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify(newCampaign),
+            method: "POST",
+            headers: {
+                "content-type": "application/json",
+            },
+            body: JSON.stringify(newCampaign),
         })
-          .then((res) => res.json())
-          .then((data) => {
-            console.log(data);
-            if (data.insertedId) {
-              alert("Campaign Added Successfully");
-            }
-          });
+            .then((res) => res.json())
+            .then((data) => {
+                console.log(data);
+                if (data.insertedId) {
+                    Swal.fire({
+                        position: "center",
+                        icon: "success",
+                        title: "Campaign Added Successfully",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                    // alert("Campaign Added Successfully");
+                }
+            });
     };
 
 
@@ -77,7 +90,7 @@ const AddNewCampaign = () => {
                     <div className='mb-8 md:flex'>
                         <div className="md:w-1/2">
                             <label className='fieldset-label'>Description</label>
-                            <textarea name="description" placeholder="Description" className="w-full textarea textarea-bordered"></textarea>
+                            <textarea name="description" placeholder="Description" className="w-full textarea textarea-bordered" required></textarea>
                         </div>
                         <div className="w-1/2 ml-4">
                             <label className='fieldset-label'>Deadline</label>
@@ -88,11 +101,11 @@ const AddNewCampaign = () => {
                     <div className='mb-8 md:flex'>
                         <div className="md:w-1/2">
                             <label className='fieldset-label'>User Email</label>
-                            <input type="email" value={userEmail} className="w-full input input-bordered bg-gray-200" readOnly />
+                            <input type="email" value={email} className="w-full input input-bordered bg-gray-200" name="email" readOnly />
                         </div>
                         <div className="w-1/2 ml-4">
                             <label className='fieldset-label'>User Name</label>
-                            <input type="text" value={userName} className="w-full input input-bordered bg-gray-200" readOnly />
+                            <input type="text" value={displayName} className="w-full input input-bordered bg-gray-200" name="name" readOnly />
                         </div>
                     </div>
                 </fieldset>

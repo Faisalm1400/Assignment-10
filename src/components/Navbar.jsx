@@ -4,12 +4,12 @@ import { AuthContext } from "../context/AuthContextProvider";
 
 const Navbar = () => {
     const { user, logOut } = useContext(AuthContext);
-
+ console.log(user);
     const links = <>
         <li><Link to={'/'}>Home</Link></li>
         <li><Link to={'/allCampaign'}>All Campaign</Link></li>
         <li><Link to={'/addNewCampaign'}>Add New Campaign</Link></li>
-        <li><Link>My Campaign</Link></li>
+        <li><Link to={'/myCampaigns'}>My Campaign</Link></li>
         <li><Link>My Donations</Link></li>
     </>
     return (
@@ -43,7 +43,7 @@ const Navbar = () => {
                                         <div className="w-10 rounded-full">
                                             <img
                                                 alt="Tailwind CSS Navbar component"
-                                                src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+                                                src={user.photoURL} />
                                         </div>
                                     </div>
                                     <ul
@@ -51,7 +51,7 @@ const Navbar = () => {
                                         className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
                                         <li>
                                             <a className="justify-between">
-                                                Profile
+                                            {user.displayName}
                                             </a>
                                         </li>
                                         <li><a>Settings</a></li>

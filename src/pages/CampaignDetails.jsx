@@ -1,9 +1,43 @@
+import { useContext } from "react";
 import { useLoaderData } from "react-router-dom";
+import { AuthContext } from "../context/AuthContextProvider";
 
 const CampaignDetails = () => {
     const loadedCampaign = useLoaderData();
+    const { user } = useContext(AuthContext);
 
     const { image, title, type, description, minDonation, deadline } = loadedCampaign;
+
+    const handleDonate = () => {
+        if (!user) {
+            alert("Please log in to donate.");
+            return;
+        }
+
+        const donationInfo = {
+            campaignId: loadedCampaign._id,
+            campaignTitle: title,
+            donorEmail: user.email,
+            donorName: user.displayName || "Anonymous",
+            amount: minDonation,
+        };
+
+        fetch('http://localhost:5000/donated', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(donationInfo)
+        })
+            .then(res => res.json())
+            .then(data => {
+                alert('Donation successful!');
+                console.log('Donation info stored in DB', data);
+            })
+            .catch((error) => {
+                console.error('Error saving donation info:', error);
+            });
+    };
 
 
     return (
@@ -25,7 +59,7 @@ const CampaignDetails = () => {
                         <div className="badge badge-outline font-semibold"><span className="">Goal:</span> ${minDonation}</div>
                     </div>
                     <div>
-                        <button className="btn btn-primary">Donate</button>
+                        <button className="btn btn-primary" onClick={handleDonate}>Donate</button>
                     </div>
                 </div>
             </div>

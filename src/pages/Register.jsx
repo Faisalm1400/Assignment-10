@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContextProvider';
+import Swal from 'sweetalert2';
 
 const Register = () => {
     const { createNewUser, setUser } = useContext(AuthContext);
@@ -21,16 +22,29 @@ const Register = () => {
 
 
         if (!/(?=.*?[A-Z])/.test(password)) {
-            alert('Password should contain one  uppercase letter or more');
+            Swal.fire({
+                icon: "error",
+                title: "Password should contain one  uppercase letter or more",
+            });
+
+            // alert('Password should contain one  uppercase letter or more');
             return;
         }
 
         if (!/(?=.*[a-z])/.test(password)) {
-            alert('Password should contain one  lowercase letter or more');
+            Swal.fire({
+                icon: "error",
+                title: "Password should contain one  lowercase letter or more",
+            });
+            // alert('Password should contain one  lowercase letter or more');
             return;
         }
         if (!/(?=.{6,})/.test(password)) {
-            alert('Password should be 6 characters or longer');
+            Swal.fire({
+                icon: "error",
+                title: "Password should be 6 characters or longer",
+            });
+            // alert('Password should be 6 characters or longer');
             return;
         }
 
@@ -38,7 +52,31 @@ const Register = () => {
             .then(result => {
                 const user = result.user;
                 setUser(user);
-                alert('New user created')
+                const createdAt = result?.user?.metadata?.creationTime;
+                const newUser = { name, email, createdAt }
+
+                // save new user info to the database
+                fetch('http://localhost:5000/users', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(newUser)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.insertedId) {
+                            alert('user created in db')
+                        }
+                    })
+
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: "User created successfully",
+                        showConfirmButton: false,
+                        timer: 1500
+                      });
             })
             .catch((error) => {
                 console.log(error)

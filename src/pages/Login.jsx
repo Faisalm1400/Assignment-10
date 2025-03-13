@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { FcGoogle } from "react-icons/fc";
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContextProvider';
+import Swal from 'sweetalert2';
 
 const Login = () => {
     const { userLogin, setUser, handleGoogleSignIn } = useContext(AuthContext);
@@ -16,11 +17,41 @@ const Login = () => {
             .then(result => {
                 const user = result.user;
                 setUser(user);
-                alert('user logged in successfully')
+                const lastSignInTime = result?.user?.metadata?.lastSignInTime;
+                const loginInfo = { email, lastSignInTime };
+
+                fetch(`http://localhost:5000/users`, {
+                    method: 'PATCH',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(loginInfo)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log('sign in info updated in db', data)
+                    })
+
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: "User logged in successfully",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                console.log(user)
             })
             .catch((error) => {
 
                 const errorMessage = error.message;
+
+                Swal.fire({
+                    position: "top-end",
+                    icon: "error",
+                    title: `${errorMessage}`,
+                    showConfirmButton: false,
+                    timer: 1500
+                  });
                 // toast.error(`${errorMessage}`, {
                 //     position: "top-center",
                 //     autoClose: 5000,
@@ -36,28 +67,58 @@ const Login = () => {
     }
 
     const handleGoogleSignInClick = () => {
-            handleGoogleSignIn()
-                .then((result) => {
-                    // console.log(result.user);
-                    setUser(result.user);
-                    // navigate(location?.state ? location.state : "/");
-                    alert('user sign in successfully')
+        handleGoogleSignIn()
+            .then((result) => {
+                // console.log(result.user);
+                setUser(result.user);
+                // navigate(location?.state ? location.state : "/");
+                const email = result?.user?.email;
+                const createdAt = result?.user?.metadata?.creationTime;
+                const lastSignInTime = result?.user?.metadata?.lastSignInTime;
+                const googleInfo = { email, createdAt, lastSignInTime };
+
+                // Save or update user info in the database
+                fetch('http://localhost:5000/users', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(googleInfo)
                 })
-                .catch((error) => {
-                    console.log(error)
-                    // toast.error(`${error.message}`, {
-                    //     position: "top-center",
-                    //     autoClose: 5000,
-                    //     hideProgressBar: false,
-                    //     closeOnClick: true,
-                    //     pauseOnHover: true,
-                    //     draggable: true,
-                    //     progress: undefined,
-                    //     theme: "dark",
-                    // });
-                    setUser(null);
-                })
-        };
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.upsertedId) {
+                            alert('New user created in the database');
+                        } else if (data.modifiedCount > 0) {
+                            alert('User information updated in the database');
+                        } else {
+                            alert('No changes made to the database');
+                        }
+                    })
+                    .catch((error) => {
+                        console.error('Error saving user information:', error);
+                    });
+
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: "User signed in successfully",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+            })
+            .catch((error) => {
+                console.log(error)
+                Swal.fire({
+                    position: "top-end",
+                    icon: "error",
+                    title: `${error.message}`,
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                setUser(null);
+            })
+    };
 
     return (
         <div className="hero bg-base-200 min-h-screen">
