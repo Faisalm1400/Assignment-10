@@ -9,6 +9,7 @@ import AddNewCampaign from '../pages/AddNewCampaign';
 import CampaignDetails from '../pages/CampaignDetails';
 import AllCampaign from '../pages/AllCampaign';
 import MyCampaign from '../pages/MyCampaign';
+import UpdateCampaign from '../pages/UpdateCampaign';
 
 const Routes = createBrowserRouter([
     {
@@ -31,12 +32,17 @@ const Routes = createBrowserRouter([
             },
             {
                 path: "/myCampaigns",
-                element: <MyCampaign/>
+                element: <MyCampaign />
             },
             {
                 path: "/campaign/:campaignID",
                 element: <CampaignDetails />,
                 loader: ({ params }) => fetch(`http://localhost:5000/campaign/${params.campaignID}`)
+            },
+            {
+                path: "/updateCampaign/:id",
+                element: <UpdateCampaign />,
+                loader: ({params})=> fetch(`http://localhost:5000/campaign/${params.id}`)
             }
         ],
     },

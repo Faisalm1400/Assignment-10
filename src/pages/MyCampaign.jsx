@@ -4,15 +4,17 @@ import { GrUpdate } from "react-icons/gr";
 import { MdDelete } from "react-icons/md";
 import Loading from "./Loading";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const MyCampaign = () => {
 
     const { user, loading, setLoading } = useContext(AuthContext);
     const [campaigns, setCampaigns] = useState([]);
     const email = user?.email;
+    const navigate = useNavigate();
 
     const handleUpdate = (id) => {
-        // Update logic here
+        navigate(`/updateCampaign/${id}`);
     };
 
     const handleDelete = id => {
