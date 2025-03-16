@@ -1,16 +1,38 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import { AuthContext } from "../context/AuthContextProvider";
+import { toast } from "react-toastify";
 
 const CampaignDetails = () => {
     const loadedCampaign = useLoaderData();
     const { user } = useContext(AuthContext);
+    const [isDeadlinePassed, setIsDeadlinePassed] = useState(false);
 
     const { image, title, type, description, minDonation, deadline } = loadedCampaign;
 
+    useEffect(() => {
+        const checkDeadline = () => {
+            const currentDate = new Date();
+            const campaignDeadline = new Date(deadline);
+            if (campaignDeadline < currentDate) {
+                setIsDeadlinePassed(true);
+            }
+        };
+        checkDeadline();
+    }, [deadline]);
+
     const handleDonate = () => {
         if (!user) {
-            alert("Please log in to donate.");
+            toast.warning('Please log in to donate.', {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
             return;
         }
 
@@ -33,17 +55,37 @@ const CampaignDetails = () => {
         })
             .then(res => res.json())
             .then(data => {
-                alert('Donation successful!');
-                console.log('Donation info stored in DB', data);
+                toast.success('Donation successful!', {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: false,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
+                // console.log(data)
             })
             .catch((error) => {
-                console.error('Error saving donation info:', error);
+                const errorMessage = error.message;
+
+                toast.error(`${errorMessage}`, {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
             });
     };
 
 
     return (
-        <div className="flex justify-center align-middle mt-20">
+        <div className="flex justify-center align-middle my-20">
             <div className="card bg-base-100 w-96 shadow-sm">
                 <figure className="px-10 pt-10">
                     <img
@@ -61,7 +103,7 @@ const CampaignDetails = () => {
                         <div className="badge badge-outline font-semibold"><span className="">Goal:</span> ${minDonation}</div>
                     </div>
                     <div>
-                        <button className="btn btn-primary" onClick={handleDonate}>Donate</button>
+                        <button className="btn btn-primary" onClick={handleDonate} disabled={isDeadlinePassed}>{isDeadlinePassed ? 'Deadline Passed' : 'Donate'}</button>
                     </div>
                 </div>
             </div>

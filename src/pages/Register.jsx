@@ -1,11 +1,13 @@
 import { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContextProvider';
 import Swal from 'sweetalert2';
+import { toast } from 'react-toastify';
 
 const Register = () => {
     const { createNewUser, setUser } = useContext(AuthContext);
-    // const navigate = useNavigate();
+    const location = useLocation();
+    const navigate = useNavigate();
 
     const handleSubmit = e => {
 
@@ -52,6 +54,8 @@ const Register = () => {
             .then(result => {
                 const user = result.user;
                 setUser(user);
+                form.reset();
+                navigate(location?.state ? location.state : "/");
                 const createdAt = result?.user?.metadata?.creationTime;
                 const newUser = { name, email, createdAt }
 
@@ -66,20 +70,33 @@ const Register = () => {
                     .then(res => res.json())
                     .then(data => {
                         if (data.insertedId) {
-                            alert('user created in db')
+                            // alert('user created in db')
                         }
                     })
-
-                    Swal.fire({
-                        position: "top-end",
-                        icon: "success",
-                        title: "User created successfully",
-                        showConfirmButton: false,
-                        timer: 1500
-                      });
+                toast.success('User created successfully', {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: false,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
             })
             .catch((error) => {
-                console.log(error)
+                const errorMessage = error.message;
+
+                toast.error(`${errorMessage}`, {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
             })
 
     }

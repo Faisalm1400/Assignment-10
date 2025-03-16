@@ -4,14 +4,14 @@ import Loading from './Loading';
 import DonatedCard from '../components/DonatedCard';
 
 const MyDonations = () => {
-    const { user, loading, setLoading } = useContext(AuthContext);
+    const { user, setLoading } = useContext(AuthContext);
     const [campaigns, setCampaigns] = useState([]);
     const email = user?.email;
 
     useEffect(() => {
         if (!email) return;
 
-        setLoading(true);
+        setLoading(false);
         fetch(`http://localhost:5000/myDonations?email=${email}`, {
             method: 'GET',
             headers: {
@@ -20,21 +20,26 @@ const MyDonations = () => {
         })
             .then(res => res.json())
             .then(data => setCampaigns(data))
-            .finally(() => {
-                setLoading(false);
-            });
+        // .finally(() => {
+        //     setLoading(false);
+        // });
     }, [email, setLoading]);
 
-    if (loading) {
-        return <Loading />;
-    }
+    // if (loading) {
+    //     return <Loading />;
+    // }
 
 
     return (
-        <div className="flex gap-5 p-5">
-            {
-                campaigns.map(campaign => <DonatedCard key={campaign._id} campaign={campaign} />)
-            }
+        <div className="p-5">
+            <h2 className="text-2xl font-bold mb-4">My Donations</h2>
+            <div className="grid gap-5 grid-cols-1 justify-center md:grid-cols-2 lg:grid-cols-3">
+                {
+                    campaigns.map((campaign) => (
+                        <DonatedCard key={campaign._id} campaign={campaign} />
+                    ))
+                }
+            </div>
         </div>
     );
 };

@@ -2,10 +2,10 @@
 
 const DonatedCard = ({ campaign }) => {
 
-    const { image, title, type, description, minDonation, deadline } = campaign;
+    const { image, title, type, description } = campaign;
 
     return (
-        <div className="card bg-base-100 w-96 shadow-sm">
+        <div className="card bg-base-100 w-80 shadow-sm">
             <figure>
                 <img
                     src={image}
@@ -14,7 +14,7 @@ const DonatedCard = ({ campaign }) => {
             <div className="flex justify-center">
                 <div className="badge badge-secondary uppercase rounded-none">{type}</div>
             </div>
-            <div className="card-body space-y-2">
+            <div className="card-body">
                 <h2 className="text-2xl font-bold">
                     {title}
                 </h2>

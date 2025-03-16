@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 const MyCampaign = () => {
 
-    const { user, loading, setLoading } = useContext(AuthContext);
+    const { user, setLoading } = useContext(AuthContext);
     const [campaigns, setCampaigns] = useState([]);
     const email = user?.email;
     const navigate = useNavigate();
@@ -58,7 +58,7 @@ const MyCampaign = () => {
     useEffect(() => {
         if (!email) return;
 
-        setLoading(true);
+        setLoading(false);
         fetch(`http://localhost:5000/myCampaigns?email=${email}`, {
             method: 'GET',
             headers: {
@@ -67,16 +67,16 @@ const MyCampaign = () => {
         })
             .then(res => res.json())
             .then(data => setCampaigns(data))
-            .finally(() => {
-                setLoading(false);
-            });
+        // .finally(() => {
+        //     setLoading(false);
+        // });
     }, [email, setLoading]);
 
     // console.log(campaigns)
 
-    if (loading) {
-        return <Loading />;
-    }
+    // if (loading) {
+    //     return <Loading />;
+    // }
 
     return (
         <div className="p-4">

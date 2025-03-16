@@ -1,5 +1,4 @@
 import { useLoaderData, useNavigate } from "react-router-dom";
-import CampaignsCard from "../components/CampaignsCard";
 
 const AllCampaign = () => {
 
@@ -22,10 +21,10 @@ const AllCampaign = () => {
                             <th className="border border-gray-300 px-4 py-2">Actions</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody className="text-center">
                         {campaigns.map((campaign) => (
                             <tr key={campaign._id}>
-                                <td className="border border-gray-300 px-4 py-2">
+                                <td className="flex justify-center border border-gray-300 px-4 py-2">
                                     <img
                                         src={campaign.image}
                                         alt={campaign.title}

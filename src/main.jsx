@@ -1,10 +1,11 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import App from './App.jsx';
 import './index.css'
 import { RouterProvider } from "react-router-dom";
 import Routes from './routers/Routes.jsx';
-import AuthContextProvider, { AuthContext } from './context/AuthContextProvider.jsx';
+import AuthContextProvider from './context/AuthContextProvider.jsx';
+import { ToastContainer } from 'react-toastify';
+
 
 
 
@@ -13,5 +14,6 @@ createRoot(document.getElementById('root')).render(
     <AuthContextProvider>
       <RouterProvider router={Routes} />
     </AuthContextProvider>
+    <ToastContainer />
   </StrictMode>,
 )

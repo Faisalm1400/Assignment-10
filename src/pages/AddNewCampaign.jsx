@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
-import Swal from "sweetalert2";
 import { AuthContext } from "../context/AuthContextProvider";
 import Loading from "./Loading";
+import { toast } from "react-toastify";
 
 const AddNewCampaign = () => {
     const { user } = useContext(AuthContext);
@@ -41,18 +41,31 @@ const AddNewCampaign = () => {
             .then((data) => {
                 console.log(data);
                 if (data.insertedId) {
-                    Swal.fire({
-                        position: "center",
-                        icon: "success",
-                        title: "Campaign Added Successfully",
-                        showConfirmButton: false,
-                        timer: 1500
+                    toast.success('Campaign Added Successfully', {
+                        position: "top-center",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: false,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "dark",
                     });
-                    // alert("Campaign Added Successfully");
                 }
             })
             .catch((error) => {
-                console.error('Error adding campaign:', error);
+                const errorMessage = error.message;
+
+                toast.error(`${errorMessage}`, {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
             })
             .finally(() => {
                 setLoading(false);

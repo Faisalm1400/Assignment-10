@@ -1,11 +1,13 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FcGoogle } from "react-icons/fc";
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContextProvider';
-import Swal from 'sweetalert2';
+import { toast } from 'react-toastify';
 
 const Login = () => {
     const { userLogin, setUser, handleGoogleSignIn } = useContext(AuthContext);
+    const location = useLocation();
+    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -17,6 +19,8 @@ const Login = () => {
             .then(result => {
                 const user = result.user;
                 setUser(user);
+                form.reset();
+                navigate(location?.state ? location.state : "/");
                 const lastSignInTime = result?.user?.metadata?.lastSignInTime;
                 const loginInfo = { email, lastSignInTime };
 
@@ -31,38 +35,33 @@ const Login = () => {
                     .then(data => {
                         console.log('sign in info updated in db', data)
                     })
-
-                    Swal.fire({
-                        position: "top-end",
-                        icon: "success",
-                        title: "User logged in successfully",
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
-                console.log(user)
+                toast.success('User logged in successfully', {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: false,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
+                // console.log(user)
             })
             .catch((error) => {
 
                 const errorMessage = error.message;
 
-                Swal.fire({
-                    position: "top-end",
-                    icon: "error",
-                    title: `${errorMessage}`,
-                    showConfirmButton: false,
-                    timer: 1500
-                  });
-                // toast.error(`${errorMessage}`, {
-                //     position: "top-center",
-                //     autoClose: 5000,
-                //     hideProgressBar: false,
-                //     closeOnClick: true,
-                //     pauseOnHover: true,
-                //     draggable: true,
-                //     progress: undefined,
-                //     theme: "dark",
-                // });
-                console.log(errorMessage)
+                toast.error(`${errorMessage}`, {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
+                // console.log(errorMessage)
             });
     }
 
@@ -71,7 +70,7 @@ const Login = () => {
             .then((result) => {
                 // console.log(result.user);
                 setUser(result.user);
-                // navigate(location?.state ? location.state : "/");
+                navigate(location?.state ? location.state : "/");
                 const email = result?.user?.email;
                 const createdAt = result?.user?.metadata?.creationTime;
                 const lastSignInTime = result?.user?.metadata?.lastSignInTime;
@@ -88,33 +87,56 @@ const Login = () => {
                     .then(res => res.json())
                     .then(data => {
                         if (data.upsertedId) {
-                            alert('New user created in the database');
-                        } else if (data.modifiedCount > 0) {
-                            alert('User information updated in the database');
-                        } else {
-                            alert('No changes made to the database');
+                            toast.success('User logged in successfully', {
+                                position: "top-center",
+                                autoClose: 5000,
+                                hideProgressBar: false,
+                                closeOnClick: false,
+                                pauseOnHover: true,
+                                draggable: true,
+                                progress: undefined,
+                                theme: "dark",
+                            });
                         }
                     })
                     .catch((error) => {
-                        console.error('Error saving user information:', error);
+                        const errorMessage = error.message;
+
+                        toast.error(`${errorMessage}`, {
+                            position: "top-center",
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "dark",
+                        });
                     });
 
-                    Swal.fire({
-                        position: "top-end",
-                        icon: "success",
-                        title: "User signed in successfully",
-                        showConfirmButton: false,
-                        timer: 1500
+                    toast.success('User logged in successfully', {
+                        position: "top-center",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: false,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "dark",
                     });
             })
             .catch((error) => {
-                console.log(error)
-                Swal.fire({
-                    position: "top-end",
-                    icon: "error",
-                    title: `${error.message}`,
-                    showConfirmButton: false,
-                    timer: 1500
+                const errorMessage = error.message;
+
+                toast.error(`${errorMessage}`, {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
                 });
                 setUser(null);
             })
