@@ -19,10 +19,10 @@ const DonatedCard = ({ campaign }) => {
                     {title}
                 </h2>
                 <p className="text-lg font-sans">{description}</p>
-                <div className="card-actions justify-between">
+                {/* <div className="card-actions justify-between">
                     <div className="badge badge-outline font-semibold">{deadline}</div>
                     <div className="badge badge-outline font-semibold"><span className="">Goal:</span> ${minDonation}</div>
-                </div>
+                </div> */}
             </div>
         </div>
     );

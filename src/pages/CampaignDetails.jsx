@@ -16,8 +16,11 @@ const CampaignDetails = () => {
 
         const donationInfo = {
             campaignId: loadedCampaign._id,
-            campaignTitle: title,
-            donorEmail: user.email,
+            image: image,
+            title: title,
+            description: description,
+            type: type,
+            email: user.email,
             amount: minDonation,
         };
 

@@ -25,7 +25,7 @@ const AddNewCampaign = () => {
         // const name = form.name.value;
 
         const newCampaign = { image, title, type, description, minDonation, deadline,email };
-        console.log(newCampaign);
+        // console.log(newCampaign);
 
         setLoading(true);
 

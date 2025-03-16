@@ -12,6 +12,7 @@ import MyCampaign from '../pages/MyCampaign';
 import UpdateCampaign from '../pages/UpdateCampaign';
 import MyDonations from '../pages/MyDonations';
 import ErrorPage from '../pages/ErrorPage';
+import PrivateRoute from './PrivateRoute';
 
 const Routes = createBrowserRouter([
     {
@@ -31,25 +32,35 @@ const Routes = createBrowserRouter([
             },
             {
                 path: "/addNewCampaign",
-                element: <AddNewCampaign />
+                element: <PrivateRoute>
+                    <AddNewCampaign />
+                </PrivateRoute>
             },
             {
                 path: "/myCampaigns",
-                element: <MyCampaign />
+                element: <PrivateRoute>
+                    <MyCampaign />
+                </PrivateRoute>
             },
             {
                 path: "/campaign/:campaignID",
-                element: <CampaignDetails />,
+                element: <PrivateRoute>
+                    <CampaignDetails />
+                </PrivateRoute>,
                 loader: ({ params }) => fetch(`http://localhost:5000/campaign/${params.campaignID}`)
             },
             {
                 path: "/updateCampaign/:id",
-                element: <UpdateCampaign />,
+                element: <PrivateRoute>
+                    <UpdateCampaign />
+                </PrivateRoute>,
                 loader: ({ params }) => fetch(`http://localhost:5000/campaign/${params.id}`)
             },
             {
                 path: "/myDonations",
-                element: <MyDonations />,
+                element: <PrivateRoute>
+                    <MyDonations />
+                </PrivateRoute>
 
             }
         ],

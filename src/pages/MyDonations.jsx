@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../context/AuthContextProvider';
 import Loading from './Loading';
-import CampaignsCard from '../components/CampaignsCard';
+import DonatedCard from '../components/DonatedCard';
 
 const MyDonations = () => {
     const { user, loading, setLoading } = useContext(AuthContext);
@@ -33,7 +33,7 @@ const MyDonations = () => {
     return (
         <div className="flex gap-5 p-5">
             {
-                campaigns.map(campaign => <CampaignsCard key={campaign._id} campaign={campaign} />)
+                campaigns.map(campaign => <DonatedCard key={campaign._id} campaign={campaign} />)
             }
         </div>
     );
