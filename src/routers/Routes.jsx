@@ -10,11 +10,14 @@ import CampaignDetails from '../pages/CampaignDetails';
 import AllCampaign from '../pages/AllCampaign';
 import MyCampaign from '../pages/MyCampaign';
 import UpdateCampaign from '../pages/UpdateCampaign';
+import MyDonations from '../pages/MyDonations';
+import ErrorPage from '../pages/ErrorPage';
 
 const Routes = createBrowserRouter([
     {
         path: "/",
         element: <HomeLayout />,
+        errorElement: <ErrorPage />,
         children: [
             {
                 path: "/",
@@ -42,7 +45,12 @@ const Routes = createBrowserRouter([
             {
                 path: "/updateCampaign/:id",
                 element: <UpdateCampaign />,
-                loader: ({params})=> fetch(`http://localhost:5000/campaign/${params.id}`)
+                loader: ({ params }) => fetch(`http://localhost:5000/campaign/${params.id}`)
+            },
+            {
+                path: "/myDonations",
+                element: <MyDonations />,
+
             }
         ],
     },

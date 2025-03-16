@@ -7,12 +7,11 @@ import Loading from "./Loading";
 const UpdateCampaign = () => {
 
     const { user } = useContext(AuthContext);
-    const { id } = useParams(); // Retrieve campaign ID from the URL
+    const { id } = useParams();
     const [campaign, setCampaign] = useState(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // Fetch the existing campaign details using the ID
         fetch(`http://localhost:5000/campaign/${id}`)
             .then((res) => res.json())
             .then((data) => {

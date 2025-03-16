@@ -18,7 +18,6 @@ const CampaignDetails = () => {
             campaignId: loadedCampaign._id,
             campaignTitle: title,
             donorEmail: user.email,
-            donorName: user.displayName || "Anonymous",
             amount: minDonation,
         };
 
