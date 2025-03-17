@@ -8,7 +8,7 @@ const ErrorPage = () => {
             <div>
                 <Lottie className="w-sm md:w-3xl lg:w-5xl" animationData={errorPage} />
             </div>
-            <Link to={'/'} className="btn bg-amber-200">Go To Home</Link>
+            <Link to={'/'} className="btn btn-primary text-white">Go To Home</Link>
         </div>
     );
 };

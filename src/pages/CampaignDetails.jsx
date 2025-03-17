@@ -43,6 +43,7 @@ const CampaignDetails = () => {
             description: description,
             type: type,
             email: user.email,
+            displayName: user.displayName || "Anonymous",
             amount: minDonation,
         };
 
