@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 
 const UpdateCampaign = () => {
 
-    const { user } = useContext(AuthContext);
+    const { user, theme } = useContext(AuthContext);
     const { id } = useParams();
     const [campaign, setCampaign] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -81,33 +81,35 @@ const UpdateCampaign = () => {
             });
     };
 
+    const textColorClass = theme === "dark" ? "text-black" : "text-gray-700";
+
     if (loading) {
         return <Loading />;
     }
 
     return (
         <div className="bg-[#F4F3F0] p-4 md:p-24 pt-10">
-            <h1 className="text-2xl md:text-3xl font-extrabold mb-6">Update Campaign</h1>
+            <h1 className={`text-2xl md:text-3xl font-extrabold mb-6 ${textColorClass}`}>Update Campaign</h1>
             <form onSubmit={handleUpdate}>
                 <fieldset className="mb-4 md:mb-8">
-                    <legend className="text-xl font-bold mb-2">Campaign Details</legend>
+                    <legend className={`text-xl font-bold mb-2 ${textColorClass}`}>Campaign Details</legend>
                     <div className="mb-4 md:mb-8 md:flex">
                         <div className="w-full md:w-1/2 mb-4 md:mb-0">
-                            <label className="fieldset-label">Image URL</label>
+                            <label className={`fieldset-label mb-2 ${textColorClass}`}>Image URL</label>
                             <input type="text" name="image" defaultValue={campaign.image} className="w-full input input-bordered" required />
                         </div>
                         <div className="w-full md:w-1/2 md:ml-4">
-                            <label className="fieldset-label">Campaign Title</label>
+                            <label className={`fieldset-label mb-2 ${textColorClass}`}>Campaign Title</label>
                             <input type="text" name="title" defaultValue={campaign.title} className="w-full input input-bordered" required />
                         </div>
                     </div>
                 </fieldset>
 
                 <fieldset className="mb-4 md:mb-8">
-                    <legend className="text-xl font-bold mb-2">Donation Details</legend>
+                    <legend className={`text-xl font-bold mb-2 ${textColorClass}`}>Donation Details</legend>
                     <div className="mb-4 md:mb-8 md:flex">
                         <div className="w-full md:w-1/2 mb-4 md:mb-0">
-                            <label className="fieldset-label">Campaign Type</label>
+                            <label className={`fieldset-label mb-2 ${textColorClass}`}>Campaign Type</label>
                             <select name="type" defaultValue={campaign.type} className="w-full select select-bordered">
                                 <option value="personal issue">Personal Issue</option>
                                 <option value="startup">Startup</option>
@@ -116,33 +118,33 @@ const UpdateCampaign = () => {
                             </select>
                         </div>
                         <div className="w-full md:w-1/2 md:ml-4">
-                            <label className="fieldset-label">Minimum Donation</label>
+                            <label className={`fieldset-label mb-2 ${textColorClass}`}>Minimum Donation</label>
                             <input type="number" name="minDonation" defaultValue={campaign.minDonation} className="w-full input input-bordered" required />
                         </div>
                     </div>
                 </fieldset>
 
                 <fieldset className="mb-4 md:mb-8">
-                    <legend className="text-xl font-bold mb-2">Additional Information</legend>
+                    <legend className={`text-xl font-bold mb-2 ${textColorClass}`}>Additional Information</legend>
                     <div className="mb-4 md:mb-8 md:flex">
                         <div className="w-full md:w-1/2 mb-4 md:mb-0">
-                            <label className="fieldset-label">Description</label>
+                            <label className={`fieldset-label mb-2 ${textColorClass}`}>Description</label>
                             <textarea name="description" defaultValue={campaign.description} className="w-full textarea textarea-bordered" required></textarea>
                         </div>
                         <div className="w-full md:w-1/2 md:ml-4">
-                            <label className="fieldset-label">Deadline</label>
+                            <label className={`fieldset-label mb-2 ${textColorClass}`}>Deadline</label>
                             <input type="date" name="deadline" defaultValue={campaign.deadline} className="w-full input input-bordered" required />
                         </div>
                     </div>
 
                     <div className="mb-4 md:mb-8 md:flex">
                         <div className="w-full md:w-1/2 mb-4 md:mb-0">
-                            <label className="fieldset-label">User Email</label>
-                            <input type="email" value={user?.email} className="w-full input input-bordered bg-gray-200" name="email" readOnly />
+                            <label className="fieldset-label mb-2">User Email</label>
+                            <input type="email" value={user?.email} className={`w-full input input-bordered bg-gray-200 ${textColorClass}`} name="email" readOnly />
                         </div>
                         <div className="w-full md:w-1/2 md:ml-4">
-                            <label className="fieldset-label">User Name</label>
-                            <input type="text" value={user?.displayName} className="w-full input input-bordered bg-gray-200" name="name" readOnly />
+                            <label className="fieldset-label mb-2">User Name</label>
+                            <input type="text" value={user?.displayName} className={`w-full input input-bordered bg-gray-200 ${textColorClass}`} name="name" readOnly />
                         </div>
                     </div>
                 </fieldset>

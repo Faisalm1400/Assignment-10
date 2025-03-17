@@ -5,7 +5,7 @@ const DonatedCard = ({ campaign }) => {
     const { image, title, type, description } = campaign;
 
     return (
-        <div className="card bg-base-100 w-80 shadow-sm">
+        <div className="card bg-emerald-300 w-80 shadow-sm">
             <figure>
                 <img
                     src={image}

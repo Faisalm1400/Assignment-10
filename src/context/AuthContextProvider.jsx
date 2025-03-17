@@ -40,15 +40,21 @@ const AuthContextProvider = ({ children }) => {
         return signOut(auth);
     };
 
+    const [theme, setTheme] = useState(
+        localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
+    );
+
 
 
 
     const authInfo = {
         auth,
         user,
+        theme,
         logOut,
         setUser,
         loading,
+        setTheme,
         userLogin,
         setLoading,
         createNewUser,

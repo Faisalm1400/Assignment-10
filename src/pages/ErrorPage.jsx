@@ -1,8 +1,14 @@
+import Lottie from "lottie-react";
+import errorPage from "../assets/Animation.json"
+import { Link } from "react-router-dom";
 
 const ErrorPage = () => {
     return (
-        <div>
-            <h1 className="text-2xl">404 Page Found</h1>
+        <div className="max-w-full max-h-full align-middle flex-col flex justify-center items-center py-3">
+            <div>
+                <Lottie className="w-sm md:w-3xl lg:w-5xl" animationData={errorPage} />
+            </div>
+            <Link to={'/'} className="btn bg-amber-200">Go To Home</Link>
         </div>
     );
 };

@@ -4,7 +4,7 @@ import Loading from "./Loading";
 import { toast } from "react-toastify";
 
 const AddNewCampaign = () => {
-    const { user } = useContext(AuthContext);
+    const { user,theme } = useContext(AuthContext);
 
     const [loading, setLoading] = useState(false);
 
@@ -72,6 +72,8 @@ const AddNewCampaign = () => {
             });
     };
 
+    const textColorClass = theme === "dark" ? "text-black" : "text-gray-700";
+
     if (loading) {
         return <Loading />;
     }
@@ -79,27 +81,27 @@ const AddNewCampaign = () => {
 
     return (
         <div className='bg-[#F4F3F0] p-4 md:p-24 pt-10'>
-            <h1 className='text-2xl md:text-3xl font-extrabold mb-6'>Add New Campaign</h1>
+            <h1 className={`text-2xl md:text-3xl font-extrabold mb-6 ${textColorClass}`}>Add New Campaign</h1>
             <form onSubmit={handleAddCampaign}>
                 <fieldset className='mb-4 md:mb-8'>
-                    <legend className='text-xl font-bold mb-2'>Campaign Details</legend>
+                    <legend className={`text-xl font-bold mb-2 ${textColorClass}`}>Campaign Details</legend>
                     <div className='mb-4 md:mb-8 md:flex'>
                         <div className="w-full md:w-1/2 mb-4 md:mb-0">
-                            <label className='fieldset-label'>Image URL</label>
+                            <label className={`fieldset-label mb-2 ${textColorClass}`}>Image URL</label>
                             <input type="text" name="image" placeholder="Image URL" className="w-full input input-bordered" required />
                         </div>
                         <div className="w-full md:w-1/2 md:ml-4">
-                            <label className='fieldset-label'>Campaign Title</label>
+                            <label className={`fieldset-label mb-2 ${textColorClass}`}>Campaign Title</label>
                             <input type="text" name="title" placeholder="Campaign Title" className="w-full input input-bordered" required />
                         </div>
                     </div>
                 </fieldset>
 
                 <fieldset className='mb-4 md:mb-8'>
-                    <legend className='text-xl font-bold mb-2'>Donation Details</legend>
+                    <legend className={`text-xl font-bold mb-2 ${textColorClass}`}>Donation Details</legend>
                     <div className='mb-4 md:mb-8 md:flex'>
                         <div className="w-full md:w-1/2 mb-4 md:mb-0">
-                            <label className='fieldset-label'>Campaign Type</label>
+                            <label className={`fieldset-label mb-2 ${textColorClass}`}>Campaign Type</label>
                             <select name="type" className="w-full select select-bordered">
                                 <option value="personal issue">Personal Issue</option>
                                 <option value="startup">Startup</option>
@@ -108,33 +110,33 @@ const AddNewCampaign = () => {
                             </select>
                         </div>
                         <div className="w-full md:w-1/2 md:ml-4">
-                            <label className='fieldset-label'>Minimum Donation</label>
+                            <label className={`fieldset-label mb-2 ${textColorClass}`}>Minimum Donation</label>
                             <input type="number" name="minDonation" placeholder="Minimum Donation Amount" className="w-full input input-bordered" required />
                         </div>
                     </div>
                 </fieldset>
 
                 <fieldset className='mb-4 md:mb-8'>
-                    <legend className='text-xl font-bold mb-2'>Additional Information</legend>
+                    <legend className={`text-xl font-bold mb-2 ${textColorClass}`}>Additional Information</legend>
                     <div className='mb-4 md:mb-8 md:flex'>
                         <div className="w-full md:w-1/2 mb-4 md:mb-0">
-                            <label className='fieldset-label'>Description</label>
+                            <label className={`fieldset-label mb-2 ${textColorClass}`}>Description</label>
                             <textarea name="description" placeholder="Description" className="w-full textarea textarea-bordered" required></textarea>
                         </div>
                         <div className="w-full md:w-1/2 md:ml-4">
-                            <label className='fieldset-label'>Deadline</label>
+                            <label className={`fieldset-label mb-2 ${textColorClass}`}>Deadline</label>
                             <input type="date" name="deadline" className="w-full input input-bordered" required />
                         </div>
                     </div>
 
                     <div className='mb-4 md:mb-8 md:flex'>
                         <div className="w-full md:w-1/2 mb-4 md:mb-0">
-                            <label className='fieldset-label'>User Email</label>
-                            <input type="email" value={email} className="w-full input input-bordered bg-gray-200" name="email" readOnly />
+                            <label className={`fieldset-label mb-2 ${textColorClass}`}>User Email</label>
+                            <input type="email" value={email} className={`w-full input input-bordered bg-gray-200 ${textColorClass}`} name="email" readOnly />
                         </div>
                         <div className="w-full md:w-1/2 md:ml-4">
-                            <label className='fieldset-label'>User Name</label>
-                            <input type="text" value={displayName} className="w-full input input-bordered bg-gray-200" name="name" readOnly />
+                            <label className={`fieldset-label mb-2 ${textColorClass}`}>User Name</label>
+                            <input type="text" value={displayName} className={`w-full input input-bordered bg-gray-200 ${textColorClass}`} name="name" readOnly />
                         </div>
                     </div>
                 </fieldset>

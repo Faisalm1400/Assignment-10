@@ -7,7 +7,7 @@ const AllCampaign = () => {
 
     return (
         <div className="container mx-auto p-6">
-            <h1 className="text-2xl font-bold mb-4 text-center">All Campaigns</h1>
+            <h1 className="text-2xl font-bold mb-4">All Campaigns</h1>
             <div className="overflow-x-auto">
                 <table className="table-auto w-full border-collapse border border-gray-300">
                     <thead>
