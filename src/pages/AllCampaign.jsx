@@ -1,13 +1,28 @@
+import { useState } from "react";
 import { useLoaderData, useNavigate } from "react-router-dom";
 
 const AllCampaign = () => {
 
-    const campaigns = useLoaderData();
+    const campaignsData = useLoaderData();
     const navigate = useNavigate();
+    const [campaigns, setCampaigns] = useState(campaignsData);
+
+    const sortCampaignsByMinDonation = () => {
+        const sortedCampaigns = [...campaigns].sort((a, b) => a.minDonation - b.minDonation);
+        setCampaigns(sortedCampaigns);
+    };
 
     return (
         <div className="container mx-auto p-6">
-            <h1 className="text-2xl font-bold mb-4">All Campaigns</h1>
+            <div className="flex justify-between">
+                <h1 className="text-2xl font-bold mb-4">All Campaigns</h1>
+                <button
+                    className="mb-4 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-700"
+                    onClick={sortCampaignsByMinDonation}
+                >
+                    Sort
+                </button>
+            </div>
             <div className="overflow-x-auto">
                 <table className="table-auto w-full border-collapse border border-gray-300">
                     <thead>
