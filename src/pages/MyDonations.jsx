@@ -12,7 +12,7 @@ const MyDonations = () => {
         if (!email) return;
 
         setLoading(false);
-        fetch(`http://localhost:5000/myDonations?email=${email}`, {
+        fetch(`https://crowdcube-server-lyart.vercel.app/myDonations?email=${email}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'

@@ -24,7 +24,7 @@ const Login = () => {
                 const lastSignInTime = result?.user?.metadata?.lastSignInTime;
                 const loginInfo = { email, lastSignInTime };
 
-                fetch(`http://localhost:5000/users`, {
+                fetch(`https://crowdcube-server-lyart.vercel.app/users`, {
                     method: 'PATCH',
                     headers: {
                         'content-type': 'application/json'
@@ -77,7 +77,7 @@ const Login = () => {
                 const googleInfo = { email, createdAt, lastSignInTime };
 
                 // Save or update user info in the database
-                fetch('http://localhost:5000/users', {
+                fetch('https://crowdcube-server-lyart.vercel.app/users', {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json'

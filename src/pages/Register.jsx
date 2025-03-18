@@ -60,7 +60,7 @@ const Register = () => {
                 const newUser = { name, email, createdAt }
 
                 // save new user info to the database
-                fetch('http://localhost:5000/users', {
+                fetch('https://crowdcube-server-lyart.vercel.app/users', {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json'

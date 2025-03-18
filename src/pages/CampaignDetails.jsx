@@ -47,7 +47,7 @@ const CampaignDetails = () => {
             amount: minDonation,
         };
 
-        fetch('http://localhost:5000/donated', {
+        fetch('https://crowdcube-server-lyart.vercel.app/donated', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

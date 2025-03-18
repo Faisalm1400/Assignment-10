@@ -23,12 +23,12 @@ const Routes = createBrowserRouter([
             {
                 path: "/",
                 element: <Home />,
-                loader: () => fetch('http://localhost:5000/campaign')
+                loader: () => fetch('https://crowdcube-server-lyart.vercel.app/campaign')
             },
             {
                 path: "/allCampaign",
                 element: <AllCampaign />,
-                loader: () => fetch('http://localhost:5000/campaign')
+                loader: () => fetch('https://crowdcube-server-lyart.vercel.app/campaign')
             },
             {
                 path: "/addNewCampaign",
@@ -47,14 +47,14 @@ const Routes = createBrowserRouter([
                 element: <PrivateRoute>
                     <CampaignDetails />
                 </PrivateRoute>,
-                loader: ({ params }) => fetch(`http://localhost:5000/campaign/${params.campaignID}`)
+                loader: ({ params }) => fetch(`https://crowdcube-server-lyart.vercel.app/campaign/${params.campaignID}`)
             },
             {
                 path: "/updateCampaign/:id",
                 element: <PrivateRoute>
                     <UpdateCampaign />
                 </PrivateRoute>,
-                loader: ({ params }) => fetch(`http://localhost:5000/campaign/${params.id}`)
+                loader: ({ params }) => fetch(`https://crowdcube-server-lyart.vercel.app/campaign/${params.id}`)
             },
             {
                 path: "/myDonations",

@@ -31,7 +31,7 @@ const MyCampaign = () => {
                 setLoading(true);
 
                 // delete from the database
-                fetch(`http://localhost:5000/campaign/${id}`, {
+                fetch(`https://crowdcube-server-lyart.vercel.app/campaign/${id}`, {
                     method: 'DELETE',
 
                 })
@@ -59,7 +59,7 @@ const MyCampaign = () => {
         if (!email) return;
 
         setLoading(false);
-        fetch(`http://localhost:5000/myCampaigns?email=${email}`, {
+        fetch(`https://crowdcube-server-lyart.vercel.app/myCampaigns?email=${email}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'

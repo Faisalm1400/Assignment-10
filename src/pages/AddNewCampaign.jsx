@@ -30,7 +30,7 @@ const AddNewCampaign = () => {
         setLoading(true);
 
         // send data to the server
-        fetch("http://localhost:5000/campaign", {
+        fetch("https://crowdcube-server-lyart.vercel.app/campaign", {
             method: "POST",
             headers: {
                 "content-type": "application/json",

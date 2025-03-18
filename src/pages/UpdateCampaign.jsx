@@ -12,7 +12,7 @@ const UpdateCampaign = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch(`http://localhost:5000/campaign/${id}`)
+        fetch(`https://crowdcube-server-lyart.vercel.app/campaign/${id}`)
             .then((res) => res.json())
             .then((data) => {
                 setCampaign(data);
@@ -40,7 +40,7 @@ const UpdateCampaign = () => {
         setLoading(true);
 
         // Update the campaign in the database
-        fetch(`http://localhost:5000/updateCampaign/${id}`, {
+        fetch(`https://crowdcube-server-lyart.vercel.app/updateCampaign/${id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
