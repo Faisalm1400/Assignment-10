@@ -7,10 +7,12 @@ import { Slide } from "react-awesome-reveal";
 import { Typewriter } from 'react-simple-typewriter';
 import { GiLaurelCrown } from "react-icons/gi";
 import { FaChartPie } from "react-icons/fa";
+import photo from "../assets/photos/dmitry-ganin-JRa8lCQQhSs-unsplash.jpg";
 
 const Home = () => {
 
     const campaigns = useLoaderData();
+
 
     return (
         <div>
@@ -143,7 +145,7 @@ const Home = () => {
                 </div>
             </section>
 
-            {/* extra section 1 */}
+            {/* why choose */}
             <section className="bg-base-100 py-16">
                 <div className="container mx-auto px-6 lg:px-20">
                     <h2 className="text-3xl md:text-4xl font-extrabold text-center mb-4">
@@ -168,7 +170,7 @@ const Home = () => {
                         {/* Funding Section */}
                         <div className="flex items-start">
                             <div className="mr-4">
-                            <FaChartPie className='text-6xl' />
+                                <FaChartPie className='text-6xl' />
                             </div>
                             <div>
                                 <h3 className="text-lg font-bold ">Millions In Funding</h3>
@@ -181,8 +183,31 @@ const Home = () => {
                 </div>
             </section>
 
-            {/* extra section 2 */}
-            <section></section>
+            {/* Testimonials */}
+            <section>
+                <div className="py-16 bg-gray-100">
+                    <div className="text-center mb-12">
+                        <h2 className="text-4xl font-bold text-black">What Our Users Say</h2>
+                        <p className="text-gray-600 mt-2">
+                            See how our platform has transformed campaigns and made fundraising easier than ever.
+                        </p>
+                    </div>
+                    <div className="flex justify-center">
+                        <div className="max-w-xl bg-white shadow-xl rounded-lg p-8 text-center">
+                            <img
+                                src={photo}
+                                alt="User Testimonial"
+                                className="w-24 h-24 mx-auto rounded-full mb-4"
+                            />
+                            <p className="text-gray-700 italic mb-4">
+                                &quot;Thanks to this platform, I successfully funded my project within weeks! The user-friendly tools and excellent support made all the difference.&quot;
+                            </p>
+                            <h4 className="font-bold">Sophia Khan</h4>
+                            <span className="text-sm text-gray-500">Entrepreneur</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
         </div>
     );
