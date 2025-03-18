@@ -1,12 +1,12 @@
-# React + Vite
+# Crowdcube - Crowdfunding Platform
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Live Site URL - https://crowdcube-ed43f.web.app/
 
-Currently, two official plugins are available:
+Crowdcube is a modern and user-friendly crowdfunding platform designed to connect ideas with supporters. Whether you’re an entrepreneur, a creative thinker, or someone in need of support, Crowdcube makes it simple to run successful fundraising campaigns.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Features
+- **Create Campaigns with Ease**: A seamless interface for users to set up campaigns quickly and efficiently.
+- **Explore Running Campaigns**: Browse through active campaigns with detailed descriptions and inspiring stories.
+- **Why Choose Us Section**: Learn why Crowdcube is the best choice for fundraising, boasting high success rates and a trusted reputation.
+- **My Campaigns**: Manage and monitor your campaigns easily, ensuring transparency and control throughout the process.
+- **Responsive Design**: An accessible layout ensures a great experience across devices, whether on mobile, tablet, or desktop.
